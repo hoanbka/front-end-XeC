@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Xeca</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="css/dataTables.min.css">
+
+    <link rel="stylesheet" href="css/booking-view.css">
+</head>
+<body>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#account-info">Thông tin tài khoản</a></li>
+    <li><a data-toggle="tab" href="#booking-history">Lịch sử mua vé</a></li>
+    <li><a data-toggle="tab" href="#payment-history">Lịch sử nộp tiền</a></li>
+    <li><a data-toggle="tab" href="#vixeca-history">Lịch sử VIXECA</a></li>
+</ul>
+
+<div class="tab-content">
+    <!-- Thông tin tài khoản-->
+    <div id="account-info" class="tab-pane fade in active">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Thông tin cơ bản</h3>
+                <hr/>
+
+                <form class="form-horizontal" onsubmit="return false;">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="phone-number">Số điện thoại: </label>
+                        <div class="col-sm-8">
+                            <input type="tel" name="phone-number" class="form-control" id="phone-number"
+                                   placeholder="Nhập số điện thoại">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="name">Họ tên: </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="name" class="form-control" id="name"
+                                   placeholder="Nhập họ tên khách hàng">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="email">Email: </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="email" class="form-control" id="email"
+                                   placeholder="Nhập email khách hàng">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="pin">Số CMTND:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pin" class="form-control" id="pin"
+                                   placeholder="Nhập số CMTND">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="birthday">Ngày sinh:</label>
+                        <div class="col-sm-8 xeca-input-group">
+                            <input type="text" name="birthday" class="date-time-picker form-control" id="birthday"
+                                   data-date-format="DD/MM/YYYY" placeholder="30/11/1994">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8">
+                            <button type="submit" class="btn btn-danger col-md-12" id="btn-get-balance">Lấy lại dữ
+                                liệu
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-md-6">
+                <h3>Tài khoản VIXECA</h3>
+                <hr/>
+                <p>Số dư: <span id="balance" style="font-weight: bold;"></span></p>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Lịch sử mua vé-->
+    <div id="booking-history" class="tab-pane fade">
+        <br/>
+        <form class="form-inline" onsubmit="return false;">
+            <div class="form-group">
+                <div class=" input-group date xeca-input-group" data-provide="datepicker">
+                    <input type="text" name="from-date-booking" class="date-time-picker form-control"
+                           id="from-date-booking " data-date-format="DD/MM/YYYY" placeholder="01/01/2017">
+                    <span class="input-group-addon p-l-10 bgm-gray c-white"><i role="button"
+                                                                               class="zmdi zmdi-calendar "></i></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class=" input-group date xeca-input-group" data-provide="datepicker">
+                    <input type="text" name="to-date-booking" class="date-time-picker form-control"
+                           id="to-date-booking" data-date-format="DD/MM/YYYY" placeholder="30/01/2017">
+                    <span class="input-group-addon p-l-10 bgm-gray c-white"><i role="button"
+                                                                               class="zmdi zmdi-calendar "></i></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class=" input-group date xeca-input-group">
+                    <input type="text" name="booking-code" class="form-control" id="booking-code"
+                           placeholder="Mã vé">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <select name="booking-status" class="form-control" id="booking-status" title="Trạng thái vé">
+                    <option value="0" disabled selected>Trạng thái vé</option>
+                    <option value="2">Đã thanh toán</option>
+                    <option value="8">Đã hủy</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-9">
+                    <button type="submit" class="btn btn-danger" id="btn-search-booking-history">Tìm</button>
+                </div>
+            </div>
+        </form>
+        <br/>
+
+        <div>
+            <div class="col-md-12">
+                <table id="table-booking-history" class="table table-bordered table-striped" width="100%">
+                    <thead>
+                    <tr>
+                        <th class="text-center bgm-orange c-white w-50">STT</th>
+                        <th class="text-center bgm-orange c-white w-170">Ngày giờ xuất bến</th>
+                        <th class="text-center bgm-orange c-white w-150">Mã vé</th>
+                        <th class="text-center bgm-orange c-white w-150">Trạng thái</th>
+                        <th class="text-center bgm-orange c-white w-150">Người đi</th>
+                        <th class="text-center bgm-orange c-white w-150">Thời gian mua</th>
+                        <th class="text-center bgm-orange c-white w-150">Thời gian hủy</th>
+                        <th class="text-center bgm-orange c-white w-150">Hình thức mua</th>
+                        <th class="text-center bgm-orange c-white w-150">Số tiền</th>
+                        <th class="text-center bgm-orange c-white w-150">Danh sách vé</th>
+                        <th class="text-center bgm-orange c-white w-150">Nhà xe</th>
+                        <th class="text-center bgm-orange c-white w-150">Thông tin vé</th>
+
+                    </tr>
+                    </thead>
+                    <tbody id="body-table-booking-history">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lịch sử nộp tiền-->
+    <div id="payment-history" class="tab-pane fade">
+        <br/>
+        <form class="form-inline" onsubmit="return false;">
+            <div class="form-group">
+                <div class=" input-group date xeca-input-group" data-provide="datepicker">
+                    <input type="text" name="from-date-payment" class="date-time-picker form-control"
+                           id="from-date-payment" data-date-format="DD/MM/YYYY" placeholder="01/01/2017">
+                    <span class="input-group-addon p-l-10 bgm-gray c-white"><i role="button"
+                                                                               class="zmdi zmdi-calendar "></i></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class=" input-group date xeca-input-group" data-provide="datepicker">
+                    <input type="text" name="to-date-payment" class="date-time-picker form-control"
+                           id="to-date-payment" data-date-format="DD/MM/YYYY" placeholder="30/01/2017">
+                    <span class="input-group-addon p-l-10 bgm-gray c-white"><i role="button"
+                                                                               class="zmdi zmdi-calendar "></i></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <select name="payment-status" class="form-control" id="payment-status" title="Trạng thái">
+                    <option value="0" disabled selected>Trạng thái</option>
+                    <option value="1">Chờ chuyển khoản</option>
+                    <option value="2">Đã hủy</option>
+                    <option value="3">Đã duyệt</option>
+                    <option value="4">Đã hoàn tiền</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class=" input-group date xeca-input-group">
+                    <input type="text" name="payment-code" class="form-control" id="payment-code"
+                           placeholder="Mã nộp tiền">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger" id="btn-search-payment-history">Tìm</button>
+            </div>
+
+        </form>
+        <br/>
+
+        <div>
+            <div class="col-md-12">
+                <table id="table-payment-history" class="table table-bordered table-striped" width="100%">
+                    <thead>
+                    <tr>
+                        <th class="text-center bgm-orange c-white w-50 ">STT</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Ngày tạo</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Mã nộp tiền</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Số tiền nộp (VNĐ)</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Trạng thái</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Ngày cập nhật</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="body-table-payment-history">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lịch sử VIXECA-->
+    <div id="vixeca-history" class="tab-pane fade">
+        <br/>
+        <form class="form-inline" onsubmit="return false;">
+            <div class="form-group">
+                <div class=" input-group date xeca-input-group" data-provide="datepicker">
+                    <input type="text" name="from-date-xeca" class="date-time-picker form-control"
+                           id="from-date-xeca" data-date-format="DD/MM/YYYY" placeholder="01/01/2017">
+                    <span class="input-group-addon p-l-10 bgm-gray c-white"><i role="button"
+                                                                               class="zmdi zmdi-calendar "></i></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class=" input-group date xeca-input-group" data-provide="datepicker">
+                    <input type="text" name="to-date-xeca" class="date-time-picker form-control" id="to-date-xeca"
+                           data-date-format="DD/MM/YYYY" placeholder="01/01/2017">
+                    <span class="input-group-addon p-l-10 bgm-gray c-white"><i role="button"
+                                                                               class="zmdi zmdi-calendar "></i></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <select name="xeca-action" class="form-control" id="xeca-action" title="Trạng thái">
+                    <option value="0" disabled selected>Loại giao dịch</option>
+                    <option value="1">Nộp tiền</option>
+                    <option value="2">Hủy nộp tiền</option>
+                    <option value="3">Mua vé</option>
+                    <option value="4">Hoàn tiền hủy vé</option>
+                    <option value="5">Cắt hủy vé</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-9">
+                    <button type="submit" class="btn btn-danger" id="btn-search-vixeca-history">Tìm</button>
+                </div>
+            </div>
+
+        </form>
+        <br/>
+
+        <div>
+            <div class="col-md-12">
+                <table id="table-vixeca-history" class="table table-bordered table-striped" width="100%">
+                    <thead>
+                    <tr>
+                        <th class="text-center bgm-orange c-white w-50 ">STT</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Ngày thực hiện</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Loại giao dịch</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Tổng tiền</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Mã nộp tiền</th>
+                        <th class="text-center bgm-orange c-white w-150 ">Vé</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="body-table-vixeca-history">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/booking-view.js"></script>
+</body>
+</html>

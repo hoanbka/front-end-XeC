@@ -1,0 +1,16 @@
+.tab-pane {
+    padding-left: 20px;
+}
+
+.xeca-input-group {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+#booking-code {
+    border-radius: 4px;
+}
+
+#payment-code {
+    border-radius: 4px  ;
+}
